@@ -1,0 +1,16 @@
+PODS:
+  - CPYPageViewController (0.1.0)
+
+DEPENDENCIES:
+  - CPYPageViewController (from `../`)
+
+EXTERNAL SOURCES:
+  CPYPageViewController:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CPYPageViewController: df1aa311403f279cda6f5e64e506ca6f0277e8e3
+
+PODFILE CHECKSUM: b731b136443246793cb5cf9db3b168c2a94b4290
+
+COCOAPODS: 1.2.0

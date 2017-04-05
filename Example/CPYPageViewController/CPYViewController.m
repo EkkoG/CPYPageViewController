@@ -7,6 +7,8 @@
 //
 
 #import "CPYViewController.h"
+#import <CPYPageViewController/CPYPageViewController.h>
+#import "UIColor+Tools.h"
 
 @interface CPYViewController ()
 
@@ -18,6 +20,18 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    CPYPageViewController *page = [[CPYPageViewController alloc] init];
+    [self addChildViewController:page];
+    [self.view addSubview:page.view];
+    page.view.frame = self.view.bounds;
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (int i = 0; i < 5; i++) {
+        UIViewController *vc = [[UIViewController alloc] init];
+        vc.view.backgroundColor = [UIColor randomColor];
+        [arr addObject:vc];
+    }
+    page.viewControllers = [arr copy];
 }
 
 - (void)didReceiveMemoryWarning
