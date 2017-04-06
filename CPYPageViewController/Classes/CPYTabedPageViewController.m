@@ -35,7 +35,10 @@
     // Do any additional setup after loading the view.
     [self __setup];
     [self setupTabView];
+    [self setupPageViewController];
 }
+
+#pragma mark - setup
 
 - (void)__setup {
     [self addChildViewController:self.pageViewController];
@@ -43,6 +46,8 @@
     [self.view addSubview:self.pageViewController.view];
     
 }
+
+#pragma mark - public
 
 - (void)reloadData {
     [self.tabView reloadData];

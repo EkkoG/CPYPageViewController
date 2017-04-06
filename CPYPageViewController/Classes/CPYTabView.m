@@ -52,6 +52,7 @@
     self.titleFont = [UIFont systemFontOfSize:15];
     self.floatingViewHeight = 3;
     self.floatingViewWidth = -1;
+    self.selectedIndex = 0;
     
     [self addSubview:self.tabsContainerView];
     self.tabsContainerView.frame = self.bounds;
@@ -59,10 +60,14 @@
 }
 
 - (void)setDataSource:(id<CPYTabViewDataSource>)dataSource {
+    NSAssert([dataSource respondsToSelector:@selector(numberOfTabs:)], @"the dataSource must implement dataSource methods");
+    
     _dataSource = dataSource;
+    
     [self setupTabs];
+    self.selectedIndex = 0;
     [self setupFloatingView];
-    [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
+    [self floatingViewMoveToIndex:0 animated:NO];
 }
 
 #pragma public
@@ -73,12 +78,10 @@
 }
 
 - (void)reloadData {
-    NSAssert([self.dataSource respondsToSelector:@selector(numberOfTabs:)], @"the dataSource must implement dataSource methods");
-    NSAssert([self.dataSource respondsToSelector:@selector(tabView:titleAtIndex:)], @"tabs must have title");
-    
     [self setupTabs];
+    self.selectedIndex = 0;
     [self setupFloatingView];
-    [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
+    [self floatingViewMoveToIndex:0 animated:NO];
 }
 
 - (void)setNormalTitleColor:(UIColor *)normalTitleColor {
@@ -165,8 +168,6 @@
         }
     }
     self.tabButtons = [arr copy];
-    
-    self.selectedIndex = 0;
 }
 
 - (void)tabClick:(UIButton *)sender {
