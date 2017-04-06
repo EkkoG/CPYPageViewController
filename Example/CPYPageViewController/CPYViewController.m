@@ -7,11 +7,12 @@
 //
 
 #import "CPYViewController.h"
-#import <CPYPageViewController/CPYPageViewController.h>
-#import <CPYPageViewController/CPYTabView.h>
+#import <CPYPageViewController/CPYTabedPageViewController.h>
 #import "UIColor+Tools.h"
 
-@interface CPYViewController () <CPYTabViewDataSource>
+@interface CPYViewController ()
+
+@property (nonatomic, strong) CPYTabedPageViewController *tabedPageViewController;
 
 @end
 
@@ -21,28 +22,33 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    CPYTabView *tab = [[CPYTabView alloc] init];
-    tab.backgroundColor = [UIColor grayColor];
-    tab.dataSource = self;
-    tab.normalTitleColor = [UIColor randomColor];
-    tab.selectedTitileColor = [UIColor randomColor];
-    tab.titleFont = [UIFont systemFontOfSize:18];
-    tab.floatingViewColor = [UIColor randomColor];
-    [self.view addSubview:tab];
-    tab.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 50);
-    tab.floatingViewHeight = 5;
+    [self setup];
 }
 
-- (NSInteger)numberOfTabs:(CPYTabView *)tabView {
-    return 4;
+- (void)setup {
+    [self addChildViewController:self.tabedPageViewController];
+    [self.view addSubview:self.tabedPageViewController.view];
+    self.tabedPageViewController.view.frame = self.view.bounds;
+    
+    NSMutableArray *titles = [NSMutableArray array];
+    NSMutableArray *vcs = [NSMutableArray array];
+    for (int i = 0; i < 5; i++) {
+        UIViewController *vc = [[UIViewController alloc] init];
+        vc.view.backgroundColor = [UIColor randomColor];
+        [vcs addObject:vc];
+        [titles addObject:[NSString stringWithFormat:@"%d", i]];
+    }
+    self.tabedPageViewController.viewControllers = [vcs copy];
+    self.tabedPageViewController.titles = [titles copy];
 }
 
-- (NSString *)tabView:(CPYTabView *)tabView titleAtIndex:(NSInteger)index {
-    return @"ahh";
-}
 
-- (UIImage *)tabView:(CPYTabView *)tabView backgroundImageAtIndex:(NSInteger)index {
-    return nil;
+- (CPYTabedPageViewController *)tabedPageViewController {
+	if (!_tabedPageViewController) {
+        _tabedPageViewController = [[CPYTabedPageViewController alloc] init];
+        _tabedPageViewController.tabHeight = 80;
+	}
+	return _tabedPageViewController;
 }
 
 - (void)didReceiveMemoryWarning

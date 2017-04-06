@@ -8,7 +8,7 @@
 
 #import "CPYPageViewController.h"
 
-@interface CPYPageViewController ()
+@interface CPYPageViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -70,8 +70,18 @@
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.pagingEnabled = YES;
+        _scrollView.delegate = self;
 	}
 	return _scrollView;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSInteger page = scrollView.contentOffset.x / CGRectGetWidth(self.view.bounds);
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pageViewController:didScrollToViewControllerAtIndex:)]) {
+        [self.delegate pageViewController:self didScrollToViewControllerAtIndex:page];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UIView *floatingView;
 @property (nonatomic, strong) NSArray <UIButton *> *tabButtons;
 
-@property (nonatomic, assign) NSInteger selectedIndex;
+@property (nonatomic, assign, readwrite) NSInteger selectedIndex;
 
 @end
 
@@ -135,12 +135,16 @@
     if (!self.dataSource) {
         return;
     }
+    NSInteger count = [self.dataSource numberOfTabs:self];
+    
+    if (count == 0) {
+        return;
+    }
     
     for (UIView *v in self.tabsContainerView.subviews) {
         [v removeFromSuperview];
     }
     
-    NSInteger count = [self.dataSource numberOfTabs:self];
     NSMutableArray *arr = [NSMutableArray array];
     for (int i = 0; i < count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -178,7 +182,13 @@
     if (!self.dataSource) {
         return;
     }
-    CGFloat width = self.floatingViewWidth > 0 ? self.floatingViewWidth : CGRectGetWidth(self.bounds) / [self.dataSource numberOfTabs:self];
+    
+    NSInteger count = [self.dataSource numberOfTabs:self];
+    if (count == 0) {
+        return;
+    }
+    
+    CGFloat width = self.floatingViewWidth > 0 ? self.floatingViewWidth : CGRectGetWidth(self.bounds) / count;
     self.floatingView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - self.floatingViewHeight, width, self.floatingViewHeight);
 }
 
@@ -188,6 +198,9 @@
     }
     
     NSInteger count = [self.dataSource numberOfTabs:self];
+    if (count == 0) {
+        return;
+    }
     
     CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
     CGFloat leftX = averageWidth * index + averageWidth / 2 - CGRectGetWidth(self.floatingView.bounds) / 2;
