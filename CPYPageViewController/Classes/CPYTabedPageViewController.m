@@ -7,13 +7,11 @@
 //
 
 #import "CPYTabedPageViewController.h"
-#import "CPYPageViewController.h"
-#import "CPYTabView.h"
 
 @interface CPYTabedPageViewController () <CPYTabViewDataSource, CPYTabViewDelegate, CPYPageViewControllerDelegate>
 
-@property (nonatomic, strong) CPYPageViewController *pageViewController;
-@property (nonatomic, strong) CPYTabView *tabView;
+@property (nonatomic, strong, readwrite) CPYPageViewController *pageViewController;
+@property (nonatomic, strong, readwrite) CPYTabView *tabView;
 
 @property (nonatomic, assign, readwrite) NSInteger selectedIndex;
 
@@ -74,41 +72,11 @@
     }
 }
 
-
-- (void)setTitles:(NSArray<NSString *> *)titles {
-    if (_titles != titles) {
-        _titles = titles;
-        [self.tabView reloadData];
-    }
-}
-
-- (void)setBackgroundImages:(NSArray<UIImage *> *)backgroundImages {
-    if (_backgroundImages != backgroundImages) {
-        _backgroundImages = backgroundImages;
-        [self.tabView reloadData];
-    }
-}
-
-
-- (void)setNormalTitleColor:(UIColor *)normalTitleColor {
-    if (_normalTitleColor != normalTitleColor) {
-        _normalTitleColor = normalTitleColor;
-        self.tabView.normalTitleColor = normalTitleColor;
-    }
-}
-
-- (void)setSelectedTitileColor:(UIColor *)selectedTitileColor {
-    if (_selectedTitileColor != selectedTitileColor) {
-        _selectedTitileColor = selectedTitileColor;
-        self.tabView.selectedTitileColor = selectedTitileColor;
-    }
-}
-
-- (void)setTitleFont:(UIFont *)titleFont {
-    if (_titleFont != titleFont) {
-        _titleFont = titleFont;
-        self.tabView.titleFont = titleFont;
-    }
+- (void)setTabItems:(NSArray<CPYTabItem *> *)tabItems {
+    _tabItems = tabItems;
+    NSAssert(self.viewControllers.count > 0, @"Please set viewControllers first.");
+    NSAssert(self.viewControllers.count == tabItems.count, @"TabItems count must equal to viewControllers count.");
+    [self.tabView reloadData];
 }
 
 - (void)setFloatingViewColor:(UIColor *)floatingViewColor {
@@ -153,18 +121,8 @@
     return self.viewControllers.count;
 }
 
-- (NSString *)tabView:(CPYTabView *)tabView titleAtIndex:(NSInteger)index {
-    if (index > self.titles.count - 1) {
-        return nil;
-    }
-    return self.titles[index];
-}
-
-- (UIImage *)tabView:(CPYTabView *)tabView backgroundImageAtIndex:(NSInteger)index {
-    if (index > self.backgroundImages.count - 1) {
-        return nil;
-    }
-    return self.backgroundImages[index];
+- (CPYTabItem *)tabView:(CPYTabView *)tabView tabItemAtIndex:(NSInteger)index {
+    return self.tabItems[index];
 }
 
 #pragma mark - CPYTabViewDelegate

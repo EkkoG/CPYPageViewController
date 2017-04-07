@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CPYPageViewController.h"
+#import "CPYTabView.h"
 
 @interface CPYTabedPageViewController : UIViewController
 
 @property (nonatomic, strong) NSArray <UIViewController *> *viewControllers;
-@property (nonatomic, strong) NSArray <NSString *> *titles;
-@property (nonatomic, strong) NSArray <UIImage *> *backgroundImages;
+@property (nonatomic, strong) NSArray <CPYTabItem *> *tabItems;
+
+@property (nonatomic, strong, readonly) CPYPageViewController *pageViewController;
+@property (nonatomic, strong, readonly) CPYTabView *tabView;
 
 @property (nonatomic, assign) CGFloat tabHeight;
-@property (nonatomic, strong) UIColor *normalTitleColor;
-@property (nonatomic, strong) UIColor *selectedTitileColor;
-@property (nonatomic, strong) UIFont *titleFont;
 @property (nonatomic, strong) UIColor *floatingViewColor;
 @property (nonatomic, assign) CGFloat floatingViewWidth;
 @property (nonatomic, assign) CGFloat floatingViewHeight;

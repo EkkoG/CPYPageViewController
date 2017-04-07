@@ -30,16 +30,17 @@
     [self.view addSubview:self.tabedPageViewController.view];
     self.tabedPageViewController.view.frame = self.view.bounds;
     
-    NSMutableArray *titles = [NSMutableArray array];
+    NSMutableArray *items = [NSMutableArray array];
     NSMutableArray *vcs = [NSMutableArray array];
     for (int i = 0; i < 5; i++) {
         UIViewController *vc = [[UIViewController alloc] init];
         vc.view.backgroundColor = [UIColor randomColor];
         [vcs addObject:vc];
-        [titles addObject:[NSString stringWithFormat:@"%d", i]];
+        CPYTabItem *item = [[CPYTabItem alloc] initItemWithTitle:[NSString stringWithFormat:@"%d", i] normalTitleColor:[UIColor blackColor] selectedTitleColor:[UIColor randomColor]];
+        [items addObject:item];
     }
     self.tabedPageViewController.viewControllers = [vcs copy];
-    self.tabedPageViewController.titles = [titles copy];
+    self.tabedPageViewController.tabItems = [items copy];
 }
 
 

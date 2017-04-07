@@ -8,6 +8,39 @@
 
 #import "CPYTabView.h"
 
+@implementation CPYTabItem
+
+- (instancetype)initItemWithTitle:(NSString *)title
+{
+    return [self initItemWithTitle:title titleFont:[UIFont systemFontOfSize:15] normalTitleColor:[UIColor blackColor] selectedTitleColor:[UIColor redColor] normalBackgroundImage:nil selectedBackgroundImage:nil];
+}
+
+- (instancetype)initItemWithTitle:(NSString *)title normalTitleColor:(UIColor *)normalTitleColor selectedTitleColor:(UIColor *)selectedTitleColor
+{
+    return [self initItemWithTitle:title titleFont:[UIFont systemFontOfSize:15] normalTitleColor:normalTitleColor selectedTitleColor:selectedTitleColor normalBackgroundImage:nil selectedBackgroundImage:nil];
+}
+
+- (instancetype)initItemWithTitle:(NSString *)title normalTitleColor:(UIColor *)normalTitleColor selectedTitleColor:(UIColor *)selectedTitleColor normalBackgroundImage:(UIImage *)normalBackgroundImage selectedBackgroundImage:(UIImage *)selectedBackgroundImage
+{
+    return [self initItemWithTitle:title titleFont:[UIFont systemFontOfSize:15] normalTitleColor:normalTitleColor selectedTitleColor:selectedTitleColor normalBackgroundImage:normalBackgroundImage selectedBackgroundImage:selectedBackgroundImage];
+}
+
+- (instancetype)initItemWithTitle:(NSString *)title titleFont:(UIFont *)titleFont normalTitleColor:(UIColor *)normalTitleColor selectedTitleColor:(UIColor *)selectedTitleColor normalBackgroundImage:(UIImage *)normalBackgroundImage selectedBackgroundImage:(UIImage *)selectedBackgroundImage
+{
+    self = [super init];
+    if (self) {
+        _title = [title copy];
+        _titleFont = titleFont;
+        _normalTitleColor = normalTitleColor;
+        _selectedTitileColor = selectedTitleColor;
+        _normalBackgroundImage = normalBackgroundImage;
+        _selectedBackgroundImage = selectedBackgroundImage;
+    }
+    return self;
+}
+
+@end
+
 @interface CPYTabView ()
 
 @property (nonatomic, strong) UIView *tabsContainerView;
@@ -46,10 +79,7 @@
 #pragma mark -setup
 
 - (void)__setup {
-    self.normalTitleColor = [UIColor blackColor];
-    self.selectedTitileColor = [UIColor redColor];
     self.floatingViewColor = [UIColor yellowColor];
-    self.titleFont = [UIFont systemFontOfSize:15];
     self.floatingViewHeight = 3;
     self.floatingViewWidth = -1;
     self.selectedIndex = 0;
@@ -82,27 +112,6 @@
     self.selectedIndex = 0;
     [self setupFloatingView];
     [self floatingViewMoveToIndex:0 animated:NO];
-}
-
-- (void)setNormalTitleColor:(UIColor *)normalTitleColor {
-    if (_normalTitleColor != normalTitleColor) {
-        _normalTitleColor = normalTitleColor;
-        [self setupTabs];
-    }
-}
-
-- (void)setSelectedTitileColor:(UIColor *)selectedTitileColor {
-    if (_selectedTitileColor != selectedTitileColor) {
-        _selectedTitileColor = selectedTitileColor;
-        [self setupTabs];
-    }
-}
-
-- (void)setTitleFont:(UIFont *)titleFont {
-    if (_titleFont != titleFont) {
-        _titleFont = titleFont;
-        [self setupTabs];
-    }
 }
 
 - (void)setFloatingViewColor:(UIColor *)floatingViewColor {
@@ -155,16 +164,17 @@
         btn.frame = CGRectMake(CGRectGetWidth(self.bounds) / count * i, 0, CGRectGetWidth(self.bounds) / count, CGRectGetHeight(self.bounds));
         [self.tabsContainerView addSubview:btn];
         
-        NSString *titleString = [self.dataSource tabView:self titleAtIndex:i];
-        [btn setTitle:titleString forState:UIControlStateNormal];
-        btn.titleLabel.font = self.titleFont;
-        [btn setTitleColor:self.normalTitleColor forState:UIControlStateNormal];
-        [btn setTitleColor:self.selectedTitileColor forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(tabClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        if ([self.dataSource respondsToSelector:@selector(tabView:backgroundImageAtIndex:)]) {
-            UIImage *img = [self.dataSource tabView:self backgroundImageAtIndex:i];
-            [btn setBackgroundImage:img forState:UIControlStateNormal];
+        if ([self.dataSource respondsToSelector:@selector(tabView:tabItemAtIndex:)]) {
+            CPYTabItem *item = [self.dataSource tabView:self tabItemAtIndex:i];
+            [btn setTitle:item.title forState:UIControlStateNormal];
+            [btn setBackgroundImage:item.normalBackgroundImage forState:UIControlStateNormal];
+            [btn setTitleColor:item.normalTitleColor forState:UIControlStateNormal];
+            
+            [btn setBackgroundImage:item.selectedBackgroundImage forState:UIControlStateSelected];
+            [btn setTitleColor:item.selectedTitileColor forState:UIControlStateSelected];
+            btn.titleLabel.font = item.titleFont;
         }
     }
     self.tabButtons = [arr copy];
