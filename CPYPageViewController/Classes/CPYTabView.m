@@ -88,6 +88,7 @@
     self.floatingViewHeight = 3;
     self.floatingViewWidth = -1;
     self.selectedIndex = 0;
+    self.backgroundColor = [UIColor clearColor];
     
     [self addSubview:self.tabsContainerView];
     self.tabsContainerView.frame = self.bounds;
