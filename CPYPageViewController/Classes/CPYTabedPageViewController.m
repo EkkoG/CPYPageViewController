@@ -36,6 +36,12 @@
     [self setupPageViewController];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self setupTabView];
+    [self setupPageViewController];
+}
+
 #pragma mark - setup
 
 - (void)__setup {

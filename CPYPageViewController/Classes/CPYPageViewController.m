@@ -22,6 +22,12 @@
     [self __setup];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self setupViewControllers];
+    [self setupScrollView];
+}
+
 #pragma mark -setup
 
 - (void)__setup {
@@ -59,6 +65,7 @@
 }
 
 - (void)setupScrollView {
+    self.scrollView.frame = self.view.bounds;
     self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds) * self.viewControllers.count, CGRectGetHeight(self.view.bounds));
 }
 
