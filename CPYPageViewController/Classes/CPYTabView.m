@@ -77,6 +77,7 @@
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     [self setupTabs];
+    self.selectedIndex = 0;
     [self setupFloatingView];
     [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
 }
