@@ -15,6 +15,11 @@
     return [self initItemWithTitle:title titleFont:[UIFont systemFontOfSize:15] normalTitleColor:[UIColor blackColor] selectedTitleColor:[UIColor redColor] normalBackgroundImage:nil selectedBackgroundImage:nil];
 }
 
+- (instancetype)initItemWithNormalBackgroundImage:(UIImage *)normalBackgroundImage selectedBackgroundImage:(UIImage *)selectedBackgroundImage
+{
+    return [self initItemWithTitle:nil normalTitleColor:nil selectedTitleColor:nil normalBackgroundImage:normalBackgroundImage selectedBackgroundImage:selectedBackgroundImage];
+}
+
 - (instancetype)initItemWithTitle:(NSString *)title normalTitleColor:(UIColor *)normalTitleColor selectedTitleColor:(UIColor *)selectedTitleColor
 {
     return [self initItemWithTitle:title titleFont:[UIFont systemFontOfSize:15] normalTitleColor:normalTitleColor selectedTitleColor:selectedTitleColor normalBackgroundImage:nil selectedBackgroundImage:nil];
