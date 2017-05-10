@@ -225,11 +225,13 @@
         return;
     }
     
-    if (self.floatingViewColors.count != count) {
+    if (self.floatingViewColors && self.floatingViewColors.count != count) {
         return;
     }
     
-    self.floatingView.backgroundColor = self.floatingViewColors[index];
+    if (self.floatingViewColors) {
+        self.floatingView.backgroundColor = self.floatingViewColors[index];
+    }
     
     CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
     CGFloat leftX = averageWidth * index + averageWidth / 2 - CGRectGetWidth(self.floatingView.bounds) / 2;
