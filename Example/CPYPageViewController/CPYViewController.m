@@ -39,6 +39,7 @@
         CPYTabItem *item = [[CPYTabItem alloc] initItemWithTitle:[NSString stringWithFormat:@"%d", i] normalTitleColor:[UIColor blackColor] selectedTitleColor:[UIColor randomColor]];
         [items addObject:item];
     }
+    self.tabedPageViewController.floatingViewColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor], [UIColor blueColor], [UIColor grayColor]];
     self.tabedPageViewController.viewControllers = [vcs copy];
     self.tabedPageViewController.tabItems = [items copy];
 }

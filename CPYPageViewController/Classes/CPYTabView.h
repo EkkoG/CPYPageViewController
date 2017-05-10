@@ -48,6 +48,7 @@
 @property (nonatomic, weak) id <CPYTabViewDelegate> delegate;
 
 @property (nonatomic, strong) UIColor *floatingViewColor;
+@property (nonatomic, strong) NSArray <UIColor *>*floatingViewColors;
 @property (nonatomic, assign) CGFloat floatingViewWidth;
 @property (nonatomic, assign) CGFloat floatingViewHeight;
 

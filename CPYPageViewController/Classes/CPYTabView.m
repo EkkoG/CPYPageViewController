@@ -128,6 +128,11 @@
     }
 }
 
+- (void)setFloatingViewColors:(NSArray<UIColor *> *)floatingViewColors {
+    _floatingViewColors = floatingViewColors;
+    self.floatingView.backgroundColor = floatingViewColors.firstObject;
+}
+
 - (void)setFloatingViewWidth:(CGFloat )floatingViewWidth {
     _floatingViewWidth = floatingViewWidth;
     [self setupFloatingView];
@@ -219,6 +224,12 @@
     if (count == 0) {
         return;
     }
+    
+    if (self.floatingViewColors.count != count) {
+        return;
+    }
+    
+    self.floatingView.backgroundColor = self.floatingViewColors[index];
     
     CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
     CGFloat leftX = averageWidth * index + averageWidth / 2 - CGRectGetWidth(self.floatingView.bounds) / 2;
