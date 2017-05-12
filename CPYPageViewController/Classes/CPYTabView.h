@@ -51,6 +51,7 @@
 @property (nonatomic, strong) NSArray <UIColor *>*floatingViewColors;
 @property (nonatomic, assign) CGFloat floatingViewWidth;
 @property (nonatomic, assign) CGFloat floatingViewHeight;
+@property (nonatomic, strong) UIColor *bottomLineColor;
 
 @property (nonatomic, assign, readonly) NSInteger selectedIndex;
 

@@ -50,6 +50,7 @@
 
 @property (nonatomic, strong) UIView *tabsContainerView;
 @property (nonatomic, strong) UIView *floatingView;
+@property (nonatomic, strong) UIView *bottomLineView;
 @property (nonatomic, strong) NSArray <UIButton *> *tabButtons;
 
 @property (nonatomic, assign, readwrite) NSInteger selectedIndex;
@@ -80,6 +81,7 @@
     self.selectedIndex = 0;
     [self setupFloatingView];
     [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
+    self.bottomLineView.frame = CGRectMake(0, CGRectGetHeight(frame) - 1, CGRectGetWidth(frame), 1);
 }
 
 #pragma mark -setup
@@ -94,6 +96,8 @@
     [self addSubview:self.tabsContainerView];
     self.tabsContainerView.frame = self.bounds;
     [self addSubview:self.floatingView];
+    
+    [self addSubview:self.bottomLineView];
 }
 
 - (void)setDataSource:(id<CPYTabViewDataSource>)dataSource {
@@ -151,6 +155,13 @@
     _selectedIndex = selectedIndex;
     
     self.tabButtons[_selectedIndex].selected = YES;
+}
+
+- (void)setBottomLineColor:(UIColor *)bottomLineColor {
+    if (_bottomLineColor != bottomLineColor) {
+        _bottomLineColor = bottomLineColor;
+        self.bottomLineView.backgroundColor = bottomLineColor;
+    }
 }
 
 #pragma mark - private
@@ -263,6 +274,15 @@
         _floatingView = [[UIView alloc] init];
 	}
 	return _floatingView;
+}
+
+
+- (UIView *)bottomLineView {
+	if (!_bottomLineView) {
+        _bottomLineView = [[UIView alloc] init];
+        _bottomLineView.backgroundColor = [UIColor blackColor];
+	}
+	return _bottomLineView;
 }
 
 /*
