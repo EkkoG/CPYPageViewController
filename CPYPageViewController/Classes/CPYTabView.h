@@ -54,6 +54,7 @@
 @property (nonatomic, assign) CGFloat floatingViewBottomMargin;
 @property (nonatomic, strong) UIColor *bottomLineColor;
 
+@property (nonatomic, strong, readonly) UIView *bottomLineView;
 @property (nonatomic, assign, readonly) NSInteger selectedIndex;
 
 - (void)reloadData;

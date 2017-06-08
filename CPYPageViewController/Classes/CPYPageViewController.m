@@ -10,7 +10,7 @@
 
 @interface CPYPageViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong, readwrite) UIScrollView *scrollView;
 @property (nonatomic, assign, readwrite) NSInteger selectedIndex;
 
 @end

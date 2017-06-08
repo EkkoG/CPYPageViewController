@@ -50,7 +50,7 @@
 
 @property (nonatomic, strong) UIView *tabsContainerView;
 @property (nonatomic, strong) UIView *floatingView;
-@property (nonatomic, strong) UIView *bottomLineView;
+@property (nonatomic, strong, readwrite) UIView *bottomLineView;
 @property (nonatomic, strong) NSArray <UIButton *> *tabButtons;
 
 @property (nonatomic, assign, readwrite) NSInteger selectedIndex;
@@ -74,6 +74,9 @@
     [super layoutSubviews];
     self.tabsContainerView.frame = self.bounds;
     [self layoutTabs];
+    [self setupFloatingView];
+    [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
+    self.bottomLineView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - 0.5, CGRectGetWidth(self.bounds), 0.5);
 }
 
 - (void)setFrame:(CGRect)frame {
