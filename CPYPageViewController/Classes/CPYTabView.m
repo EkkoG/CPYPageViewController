@@ -59,9 +59,9 @@
 
 @implementation CPYTabView
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
         [self __setup];
     }
@@ -73,15 +73,15 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.tabsContainerView.frame = self.bounds;
+    [self layoutTabs];
 }
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    [self setupTabs];
-    self.selectedIndex = 0;
+    [self layoutTabs];
     [self setupFloatingView];
     [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
-    self.bottomLineView.frame = CGRectMake(0, CGRectGetHeight(frame) - 1, CGRectGetWidth(frame), 1);
+    self.bottomLineView.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.5, CGRectGetWidth(frame), 0.5);
 }
 
 #pragma mark -setup
@@ -91,6 +91,7 @@
     self.floatingViewHeight = 3;
     self.floatingViewWidth = -1;
     self.selectedIndex = 0;
+    self.floatingViewBottomMargin = 0;
     self.backgroundColor = [UIColor clearColor];
     
     [self addSubview:self.tabsContainerView];
@@ -106,6 +107,7 @@
     _dataSource = dataSource;
     
     [self setupTabs];
+    [self layoutTabs];
     self.selectedIndex = 0;
     [self setupFloatingView];
     [self floatingViewMoveToIndex:0 animated:NO];
@@ -120,6 +122,7 @@
 
 - (void)reloadData {
     [self setupTabs];
+    [self layoutTabs];
     self.selectedIndex = 0;
     [self setupFloatingView];
     [self floatingViewMoveToIndex:0 animated:NO];
@@ -147,6 +150,12 @@
     _floatingViewHeight = floatingViewHeight;
     [self setupFloatingView];
     [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
+}
+
+- (void)setFloatingViewBottomMargin:(CGFloat)floatingViewBottomMargin {
+    _floatingViewBottomMargin = floatingViewBottomMargin;
+    
+    [self setupFloatingView];
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
@@ -184,7 +193,6 @@
     for (int i = 0; i < count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [arr addObject:btn];
-        btn.frame = CGRectMake(CGRectGetWidth(self.bounds) / count * i, 0, CGRectGetWidth(self.bounds) / count, CGRectGetHeight(self.bounds));
         [self.tabsContainerView addSubview:btn];
         
         [btn addTarget:self action:@selector(tabClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -223,7 +231,7 @@
     }
     
     CGFloat width = self.floatingViewWidth > 0 ? self.floatingViewWidth : CGRectGetWidth(self.bounds) / count;
-    self.floatingView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - self.floatingViewHeight, width, self.floatingViewHeight);
+    self.floatingView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - self.floatingViewHeight - self.floatingViewBottomMargin, width, self.floatingViewHeight);
 }
 
 - (void)floatingViewMoveToIndex:(NSInteger)index animated:(BOOL)animated {
@@ -257,6 +265,14 @@
         CGRect f = self.floatingView.frame;
         f.origin.x = leftX;
         self.floatingView.frame = f;
+    }
+}
+
+- (void)layoutTabs {
+    NSArray *arr = self.tabButtons;
+    for (int i = 0; i < arr.count; i++) {
+        UIButton *btn = arr[i];
+        btn.frame = CGRectMake(CGRectGetWidth(self.bounds) / arr.count * i, 0, CGRectGetWidth(self.bounds) / arr.count, CGRectGetHeight(self.bounds));
     }
 }
 

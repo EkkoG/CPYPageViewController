@@ -11,6 +11,7 @@
 @interface CPYPageViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, assign, readwrite) NSInteger selectedIndex;
 
 @end
 
@@ -26,11 +27,13 @@
     [super viewDidLayoutSubviews];
     [self setupViewControllers];
     [self setupScrollView];
+    self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.view.bounds) * self.selectedIndex, 0);
 }
 
 #pragma mark -setup
 
 - (void)__setup {
+    self.selectedIndex = 0;
     [self.view addSubview:self.scrollView];
     [self setupScrollView];
 }
@@ -38,6 +41,7 @@
 #pragma setters
 
 - (void)selectViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated {
+    self.selectedIndex = index;
     [self.scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.view.bounds) * index, 0) animated:animated];
 }
 
@@ -87,6 +91,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSInteger page = scrollView.contentOffset.x / CGRectGetWidth(self.view.bounds);
     if (self.delegate && [self.delegate respondsToSelector:@selector(pageViewController:didScrollToViewControllerAtIndex:)]) {
+        self.selectedIndex = page;
         [self.delegate pageViewController:self didScrollToViewControllerAtIndex:page];
     }
 }

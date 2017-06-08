@@ -21,6 +21,8 @@
 @property (nonatomic, weak) id <CPYPageViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSArray<UIViewController *> *viewControllers;
 
+@property (nonatomic, assign, readonly) NSInteger selectedIndex;
+
 - (void)selectViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated;
 
 @end
