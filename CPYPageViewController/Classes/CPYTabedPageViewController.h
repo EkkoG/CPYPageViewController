@@ -10,6 +10,14 @@
 #import "CPYPageViewController.h"
 #import "CPYTabView.h"
 
+@class CPYTabedPageViewController;
+
+@protocol CPYTabedPageViewControllerDelegate <NSObject>
+
+- (void)tabedPageViewController:(CPYTabedPageViewController *)pageViewController didSelectedViewControllerAtIndex:(NSInteger)index;
+
+@end
+
 @interface CPYTabedPageViewController : UIViewController
 
 @property (nonatomic, strong) NSArray <UIViewController *> *viewControllers;
@@ -25,6 +33,8 @@
 @property (nonatomic, assign) CGFloat floatingViewHeight;
 
 @property (nonatomic, assign, readonly) NSInteger selectedIndex;
+
+@property (nonatomic, weak) id <CPYTabedPageViewControllerDelegate> delegate;
 
 - (void)reloadData;
 

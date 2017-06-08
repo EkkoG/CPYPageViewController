@@ -10,7 +10,7 @@
 #import <CPYPageViewController/CPYTabedPageViewController.h>
 #import "UIColor+Tools.h"
 
-@interface CPYViewController ()
+@interface CPYViewController () <CPYTabedPageViewControllerDelegate>
 
 @property (nonatomic, strong) CPYTabedPageViewController *tabedPageViewController;
 
@@ -49,8 +49,13 @@
 	if (!_tabedPageViewController) {
         _tabedPageViewController = [[CPYTabedPageViewController alloc] init];
         _tabedPageViewController.tabHeight = 80;
+        _tabedPageViewController.delegate = self;
 	}
 	return _tabedPageViewController;
+}
+
+- (void)tabedPageViewController:(CPYTabedPageViewController *)pageViewController didSelectedViewControllerAtIndex:(NSInteger)index {
+    NSLog(@"tabed selected %ld", index);
 }
 
 - (void)didReceiveMemoryWarning

@@ -141,6 +141,9 @@
 - (void)tabView:(CPYTabView *)tabView didSelectedTabAtIndex:(NSInteger)index {
     [self.pageViewController selectViewControllerAtIndex:index animated:YES];
     self.selectedIndex = index;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tabedPageViewController:didSelectedViewControllerAtIndex:)]) {
+        [self.delegate tabedPageViewController:self didSelectedViewControllerAtIndex:index];
+    }
 }
 
 #pragma mark - CPYPageViewControllerDelegate
@@ -148,6 +151,10 @@
 - (void)pageViewController:(CPYPageViewController *)pageViewController didScrollToViewControllerAtIndex:(NSInteger)index {
     [self.tabView selectTabAtIndex:index animated:YES];
     self.selectedIndex = index;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tabedPageViewController:didSelectedViewControllerAtIndex:)]) {
+        [self.delegate tabedPageViewController:self didSelectedViewControllerAtIndex:index];
+    }
 }
 
 #pragma mark - private
