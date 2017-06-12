@@ -65,6 +65,7 @@
         [self addChildViewController:self.viewControllers[i]];
         [self.scrollView addSubview:self.viewControllers[i].view];
         self.viewControllers[i].view.frame = CGRectMake(i * CGRectGetWidth(self.view.bounds), 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
+        self.viewControllers[i].view.autoresizingMask = UIViewAutoresizingNone;
     }
 }
 
