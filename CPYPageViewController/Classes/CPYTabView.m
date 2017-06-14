@@ -32,10 +32,15 @@
 
 - (instancetype)initItemWithTitle:(NSString *)title titleFont:(UIFont *)titleFont normalTitleColor:(UIColor *)normalTitleColor selectedTitleColor:(UIColor *)selectedTitleColor normalBackgroundImage:(UIImage *)normalBackgroundImage selectedBackgroundImage:(UIImage *)selectedBackgroundImage
 {
+    return [self initItemWithTitle:title titleFont:titleFont selectedTitileFont:titleFont normalTitleColor:normalTitleColor selectedTitleColor:selectedTitleColor normalBackgroundImage:normalBackgroundImage selectedBackgroundImage:selectedBackgroundImage];
+}
+
+- (instancetype)initItemWithTitle:(NSString *)title titleFont:(UIFont *)titleFont selectedTitileFont:(UIFont *)selectedTitleFont normalTitleColor:(UIColor *)normalTitleColor selectedTitleColor:(UIColor *)selectedTitleColor normalBackgroundImage:(UIImage *)normalBackgroundImage selectedBackgroundImage:(UIImage *)selectedBackgroundImage {
     self = [super init];
     if (self) {
         _title = [title copy];
         _titleFont = titleFont;
+        _selectedTitleFont = selectedTitleFont;
         _normalTitleColor = normalTitleColor;
         _selectedTitileColor = selectedTitleColor;
         _normalBackgroundImage = normalBackgroundImage;
@@ -171,8 +176,13 @@
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
     self.tabButtons[_selectedIndex].selected = NO;
+    CPYTabItem *item = [self.dataSource tabView:self tabItemAtIndex:_selectedIndex];
+    self.tabButtons[_selectedIndex].titleLabel.font = item.titleFont;
     
     _selectedIndex = selectedIndex;
+    
+    CPYTabItem *item1 = [self.dataSource tabView:self tabItemAtIndex:_selectedIndex];
+    self.tabButtons[_selectedIndex].titleLabel.font = item1.selectedTitleFont;
     
     self.tabButtons[_selectedIndex].selected = YES;
 }
@@ -183,7 +193,6 @@
         self.bottomLineView.backgroundColor = bottomLineColor;
     }
 }
-
 
 - (void)setFloatingViewExpand:(BOOL)floatingViewExpand {
     _floatingViewExpand = floatingViewExpand;

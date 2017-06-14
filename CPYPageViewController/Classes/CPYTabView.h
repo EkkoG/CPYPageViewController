@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIColor *normalTitleColor;
 @property (nonatomic, strong) UIColor *selectedTitileColor;
 @property (nonatomic, strong) UIFont *titleFont;
+@property (nonatomic, strong) UIFont *selectedTitleFont;
 @property (nonatomic, copy) NSString *title;
 
 - (instancetype)initItemWithTitle:(NSString *)title;
@@ -22,6 +23,7 @@
 - (instancetype)initItemWithTitle:(NSString *)title normalTitleColor:(UIColor *)normalTitleColor selectedTitleColor:(UIColor *)selectedTitleColor;
 - (instancetype)initItemWithTitle:(NSString *)title normalTitleColor:(UIColor *)normalTitleColor selectedTitleColor:(UIColor *)selectedTitleColor normalBackgroundImage:(UIImage *)normalBackgroundImage selectedBackgroundImage:(UIImage *)selectedBackgroundImage;
 - (instancetype)initItemWithTitle:(NSString *)title titleFont:(UIFont *)titleFont normalTitleColor:(UIColor *)normalTitleColor selectedTitleColor:(UIColor *)selectedTitleColor normalBackgroundImage:(UIImage *)normalBackgroundImage selectedBackgroundImage:(UIImage *)selectedBackgroundImage;
+- (instancetype)initItemWithTitle:(NSString *)title titleFont:(UIFont *)titleFont selectedTitileFont:(UIFont *)selectedTitleFont normalTitleColor:(UIColor *)normalTitleColor selectedTitleColor:(UIColor *)selectedTitleColor normalBackgroundImage:(UIImage *)normalBackgroundImage selectedBackgroundImage:(UIImage *)selectedBackgroundImage;
 
 @end
 

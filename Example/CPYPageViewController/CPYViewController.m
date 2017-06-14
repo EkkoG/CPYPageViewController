@@ -37,6 +37,7 @@
         vc.view.backgroundColor = [UIColor randomColor];
         [vcs addObject:vc];
         CPYTabItem *item = [[CPYTabItem alloc] initItemWithTitle:[NSString stringWithFormat:@"%d", i] normalTitleColor:[UIColor blackColor] selectedTitleColor:[UIColor randomColor]];
+        item.selectedTitleFont = [UIFont systemFontOfSize:20];
         [items addObject:item];
     }
     self.tabedPageViewController.floatingViewColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor], [UIColor blueColor], [UIColor grayColor]];
