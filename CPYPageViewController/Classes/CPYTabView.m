@@ -80,6 +80,8 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    self.floatingView.layer.cornerRadius = CGRectGetHeight(self.floatingView.bounds) / 2.0f;
+    self.floatingView.clipsToBounds = YES;
 }
 
 - (void)setFrame:(CGRect)frame {
