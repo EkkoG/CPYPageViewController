@@ -92,6 +92,14 @@
     self.bottomLineView.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.5, CGRectGetWidth(frame), 0.5);
 }
 
+- (void)setBounds:(CGRect)bounds {
+    [super setBounds:bounds];
+    [self layoutTabs];
+    [self setupFloatingView];
+    [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
+    self.bottomLineView.frame = CGRectMake(0, CGRectGetHeight(bounds) - 0.5, CGRectGetWidth(bounds), 0.5);
+}
+
 #pragma mark -setup
 
 - (void)__setup {
@@ -109,7 +117,7 @@
     [self addSubview:self.bottomLineView];
     
     __weak typeof(self) weakSelf = self;
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidChangeStatusBarOrientationNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         __strong typeof(self) strongSelf = weakSelf;
         strongSelf.tabsContainerView.frame = strongSelf.bounds;
         [strongSelf layoutTabs];
