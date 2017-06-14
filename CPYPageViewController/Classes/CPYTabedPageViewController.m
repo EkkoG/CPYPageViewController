@@ -157,6 +157,11 @@
     }
 }
 
+- (void)pageViewController:(CPYPageViewController *)pageViewController didScrollToContentOffset:(CGPoint)contentOffset {
+    CGFloat x = contentOffset.x - self.pageViewController.selectedIndex * CGRectGetWidth(self.view.bounds);
+    self.tabView.floatingViewExpandScale = fabs(x) / CGRectGetWidth(self.view.bounds);
+}
+
 #pragma mark - private
 
 - (void)setupTabView {

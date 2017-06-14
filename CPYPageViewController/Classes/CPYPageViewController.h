@@ -14,6 +14,9 @@
 
 - (void)pageViewController:(CPYPageViewController *)pageViewController didScrollToViewControllerAtIndex:(NSInteger)index;
 
+@optional
+- (void)pageViewController:(CPYPageViewController *)pageViewController didScrollToContentOffset:(CGPoint)contentOffset;
+
 @end
 
 @interface CPYPageViewController : UIViewController

@@ -97,6 +97,12 @@
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pageViewController:didScrollToContentOffset:)]) {
+        [self.delegate pageViewController:self didScrollToContentOffset:self.scrollView.contentOffset];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

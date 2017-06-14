@@ -53,6 +53,8 @@
 @property (nonatomic, assign) CGFloat floatingViewHeight;
 @property (nonatomic, assign) CGFloat floatingViewBottomMargin;
 @property (nonatomic, strong) UIColor *bottomLineColor;
+@property (nonatomic, assign) BOOL floatingViewExpand;
+@property (nonatomic, assign) CGFloat floatingViewExpandScale;
 
 @property (nonatomic, strong, readonly) UIView *bottomLineView;
 @property (nonatomic, assign, readonly) NSInteger selectedIndex;

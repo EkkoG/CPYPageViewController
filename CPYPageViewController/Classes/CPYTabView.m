@@ -59,6 +59,9 @@
 
 @implementation CPYTabView
 
+- (void)dealloc {
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -72,11 +75,6 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.tabsContainerView.frame = self.bounds;
-    [self layoutTabs];
-    [self setupFloatingView];
-    [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
-    self.bottomLineView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - 0.5, CGRectGetWidth(self.bounds), 0.5);
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -102,6 +100,16 @@
     [self addSubview:self.floatingView];
     
     [self addSubview:self.bottomLineView];
+    
+    __weak typeof(self) weakSelf = self;
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        __strong typeof(self) strongSelf = weakSelf;
+        strongSelf.tabsContainerView.frame = strongSelf.bounds;
+        [strongSelf layoutTabs];
+        [strongSelf setupFloatingView];
+        [strongSelf floatingViewMoveToIndex:strongSelf.selectedIndex animated:NO];
+        strongSelf.bottomLineView.frame = CGRectMake(0, CGRectGetHeight(strongSelf.bounds) - 0.5, CGRectGetWidth(strongSelf.bounds), 0.5);
+    }];
 }
 
 - (void)setDataSource:(id<CPYTabViewDataSource>)dataSource {
@@ -176,6 +184,17 @@
     }
 }
 
+
+- (void)setFloatingViewExpand:(BOOL)floatingViewExpand {
+    _floatingViewExpand = floatingViewExpand;
+}
+
+
+- (void)setFloatingViewExpandScale:(CGFloat)floatingViewExpandScale {
+    _floatingViewExpandScale = floatingViewExpandScale;
+    [self expandFloatingView];
+}
+
 #pragma mark - private
 
 - (void)setupTabs {
@@ -233,8 +252,11 @@
         return;
     }
     
-    CGFloat width = self.floatingViewWidth > 0 ? self.floatingViewWidth : CGRectGetWidth(self.bounds) / count;
-    self.floatingView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - self.floatingViewHeight - self.floatingViewBottomMargin, width, self.floatingViewHeight);
+    if (self.floatingViewWidth < 0) {
+        self.floatingViewWidth = CGRectGetWidth([UIScreen mainScreen].bounds) / count;
+    }
+    
+    self.floatingView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - self.floatingViewHeight - self.floatingViewBottomMargin, self.floatingViewWidth, self.floatingViewHeight);
 }
 
 - (void)floatingViewMoveToIndex:(NSInteger)index animated:(BOOL)animated {
@@ -256,17 +278,19 @@
     }
     
     CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
-    CGFloat leftX = averageWidth * index + averageWidth / 2 - CGRectGetWidth(self.floatingView.bounds) / 2;
+    CGFloat leftX = averageWidth * index + averageWidth / 2 - self.floatingViewWidth / 2;
     if (animated) {
         [UIView animateWithDuration:0.3 animations:^{
             CGRect f = self.floatingView.frame;
             f.origin.x = leftX;
+            f.size.width = self.floatingViewWidth;
             self.floatingView.frame = f;
         }];
     }
     else {
         CGRect f = self.floatingView.frame;
         f.origin.x = leftX;
+        f.size.width = self.floatingViewWidth;
         self.floatingView.frame = f;
     }
 }
@@ -277,6 +301,26 @@
         UIButton *btn = arr[i];
         btn.frame = CGRectMake(CGRectGetWidth(self.bounds) / arr.count * i, 0, CGRectGetWidth(self.bounds) / arr.count, CGRectGetHeight(self.bounds));
     }
+}
+
+- (void)expandFloatingView {
+    if (!self.floatingViewExpand) {
+        return;
+    }
+    
+    NSInteger count = [self.dataSource numberOfTabs:self];
+    if (count == 0) {
+        return;
+    }
+    
+    CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
+    CGRect f = self.floatingView.frame;
+    f.size.width = self.floatingViewWidth * (1 + self.floatingViewExpandScale);
+    
+    CGFloat leftX = averageWidth * self.selectedIndex + averageWidth / 2 - CGRectGetWidth(f) / 2;
+    f.origin.x = leftX;
+    
+    self.floatingView.frame = f;
 }
 
 #pragma mark - getters
