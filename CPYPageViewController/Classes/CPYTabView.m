@@ -177,6 +177,12 @@
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
+    NSInteger count = [self.dataSource numberOfTabs:self];
+    
+    if (count == 0) {
+        return;
+    }
+    
     self.tabButtons[_selectedIndex].selected = NO;
     CPYTabItem *item = [self.dataSource tabView:self tabItemAtIndex:_selectedIndex];
     self.tabButtons[_selectedIndex].titleLabel.font = item.titleFont;
