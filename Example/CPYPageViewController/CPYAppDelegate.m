@@ -7,12 +7,17 @@
 //
 
 #import "CPYAppDelegate.h"
+#import <FLEX/FLEX.h>
 
 @implementation CPYAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+#if DEBUG
+    [[FLEXManager sharedManager] showExplorer];
+    [FLEXManager sharedManager].networkDebuggingEnabled = YES;
+#endif
     return YES;
 }
 

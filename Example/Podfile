@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'CPYPageViewController_Example' do
   pod 'CPYPageViewController', :path => '../'
+  pod 'FLEX', '~> 2.4.0'
 
   target 'CPYPageViewController_Tests' do
     inherit! :search_paths

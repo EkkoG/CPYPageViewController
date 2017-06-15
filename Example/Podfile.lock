@@ -1,16 +1,19 @@
 PODS:
-  - CPYPageViewController (0.1.0)
+  - CPYPageViewController (0.1.13)
+  - FLEX (2.4.0)
 
 DEPENDENCIES:
   - CPYPageViewController (from `../`)
+  - FLEX (~> 2.4.0)
 
 EXTERNAL SOURCES:
   CPYPageViewController:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CPYPageViewController: df1aa311403f279cda6f5e64e506ca6f0277e8e3
+  CPYPageViewController: da3089e4dda82abc982599a92cec1f8b8e6af216
+  FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
 
-PODFILE CHECKSUM: b731b136443246793cb5cf9db3b168c2a94b4290
+PODFILE CHECKSUM: e24279455204974ea3539675f4ce664bd0213f80
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1

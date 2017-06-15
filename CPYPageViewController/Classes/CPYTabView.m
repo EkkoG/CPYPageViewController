@@ -86,6 +86,7 @@
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
+    self.tabsContainerView.frame = self.bounds;
     [self layoutTabs];
     [self setupFloatingView];
     [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
@@ -94,6 +95,7 @@
 
 - (void)setBounds:(CGRect)bounds {
     [super setBounds:bounds];
+    self.tabsContainerView.frame = self.bounds;
     [self layoutTabs];
     [self setupFloatingView];
     [self floatingViewMoveToIndex:self.selectedIndex animated:NO];
