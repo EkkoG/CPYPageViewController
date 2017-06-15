@@ -36,6 +36,11 @@
     self.selectedIndex = 0;
     [self.view addSubview:self.scrollView];
     [self setupScrollView];
+    
+    if (self.navigationController) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+        [self.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
+    }
 }
 
 #pragma setters
