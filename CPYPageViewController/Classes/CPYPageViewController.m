@@ -10,7 +10,7 @@
 
 @interface CPYPageViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong, readwrite) UIScrollView *scrollView;
+@property (nonatomic, strong, readwrite) CPYScrollView *scrollView;
 @property (nonatomic, assign, readwrite) NSInteger selectedIndex;
 
 @end
@@ -33,24 +33,35 @@
 #pragma mark -setup
 
 - (void)__setup {
-    self.selectedIndex = 0;
     [self.view addSubview:self.scrollView];
     [self setupScrollView];
-    
-    if (self.navigationController) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-        [self.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
-    }
+    self.selectedIndex = 0;
 }
 
-#pragma setters
+#pragma mark - setters
+
+- (void)setSelectedIndex:(NSInteger)selectedIndex {
+    _selectedIndex = selectedIndex;
+    
+    if (!self.navigationController) {
+        return;
+    }
+    if (_selectedIndex != 0) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        [self.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
+        return;
+    }
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    [self.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
+}
+
+#pragma mark - public
 
 - (void)selectViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated {
     self.selectedIndex = index;
     [self.scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.view.bounds) * index, 0) animated:animated];
 }
-
-#pragma mark - public
 
 - (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers {
     _viewControllers = viewControllers;
@@ -81,9 +92,9 @@
 
 #pragma mark - getters
 
-- (UIScrollView *)scrollView {
+- (CPYScrollView *)scrollView {
 	if (!_scrollView) {
-        _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+        _scrollView = [[CPYScrollView alloc] initWithFrame:self.view.bounds];
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.pagingEnabled = YES;
@@ -91,8 +102,6 @@
 	}
 	return _scrollView;
 }
-
-#pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSInteger page = scrollView.contentOffset.x / CGRectGetWidth(self.view.bounds);

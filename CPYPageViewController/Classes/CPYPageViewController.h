@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CPYScrollView.h"
 
 @class CPYPageViewController;
 
@@ -24,7 +25,7 @@
 @property (nonatomic, weak) id <CPYPageViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSArray<UIViewController *> *viewControllers;
 
-@property (nonatomic, strong, readonly) UIScrollView *scrollView;
+@property (nonatomic, strong, readonly) CPYScrollView *scrollView;
 @property (nonatomic, assign, readonly) NSInteger selectedIndex;
 
 - (void)selectViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated;
