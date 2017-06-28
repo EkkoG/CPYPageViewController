@@ -329,9 +329,9 @@
     
     CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
     CGRect f = self.floatingView.frame;
-    f.size.width = self.floatingViewWidth * (1 + self.floatingViewExpandScale);
+    f.size.width = self.floatingViewWidth * (1 + 1 - fabs(fabs(self.floatingViewExpandScale) - 0.5) / 0.5);
     
-    CGFloat leftX = averageWidth * self.selectedIndex + averageWidth / 2 - CGRectGetWidth(f) / 2;
+    CGFloat leftX = averageWidth * self.selectedIndex + averageWidth / 2 - CGRectGetWidth(f) / 2 + self.floatingViewExpandScale * (averageWidth + self.floatingViewWidth) / 2;
     f.origin.x = leftX;
     
     self.floatingView.frame = f;
