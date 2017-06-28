@@ -27,7 +27,6 @@
 @property (nonatomic, strong, readonly) CPYTabView *tabView;
 
 @property (nonatomic, assign) CGFloat tabHeight;
-@property (nonatomic, strong) NSArray <UIColor *>*floatingViewColors;
 @property (nonatomic, strong) UIColor *floatingViewColor;
 @property (nonatomic, assign) CGFloat floatingViewWidth;
 @property (nonatomic, assign) CGFloat floatingViewHeight;

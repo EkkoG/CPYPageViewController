@@ -40,7 +40,6 @@
         item.selectedTitleFont = [UIFont systemFontOfSize:20];
         [items addObject:item];
     }
-    self.tabedPageViewController.floatingViewColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor], [UIColor blueColor], [UIColor grayColor]];
     self.tabedPageViewController.viewControllers = [vcs copy];
     self.tabedPageViewController.tabItems = [items copy];
     self.tabedPageViewController.tabView.floatingViewExpand = YES;

@@ -92,11 +92,6 @@
     }
 }
 
-- (void)setFloatingViewColors:(NSArray<UIColor *> *)floatingViewColors {
-    _floatingViewColors = floatingViewColors;
-    self.tabView.floatingViewColors = floatingViewColors;
-}
-
 - (void)setFloatingViewWidth:(CGFloat)floatingViewWidth {
     _floatingViewWidth = floatingViewWidth;
     self.tabView.floatingViewWidth = floatingViewWidth;

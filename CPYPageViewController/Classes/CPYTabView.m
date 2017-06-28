@@ -163,11 +163,6 @@
     }
 }
 
-- (void)setFloatingViewColors:(NSArray<UIColor *> *)floatingViewColors {
-    _floatingViewColors = floatingViewColors;
-    self.floatingView.backgroundColor = floatingViewColors.firstObject;
-}
-
 - (void)setFloatingViewWidth:(CGFloat )floatingViewWidth {
     _floatingViewWidth = floatingViewWidth;
     [self setupFloatingView];
@@ -294,14 +289,6 @@
     NSInteger count = [self.dataSource numberOfTabs:self];
     if (count == 0) {
         return;
-    }
-    
-    if (self.floatingViewColors && self.floatingViewColors.count != count) {
-        return;
-    }
-    
-    if (self.floatingViewColors) {
-        self.floatingView.backgroundColor = self.floatingViewColors[index];
     }
     
     CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
