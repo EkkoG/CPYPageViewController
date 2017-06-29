@@ -41,7 +41,17 @@
 #pragma mark - setters
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
+    UIViewController *preViewController = self.viewControllers[_selectedIndex];
+    if ([preViewController conformsToProtocol:@protocol(CPYPageViewControllerViewLifeCycle)] && [preViewController respondsToSelector:@selector(cpy_pageViewWillDisappear)]) {
+        [preViewController performSelector:@selector(cpy_pageViewWillDisappear)];
+    }
+    
     _selectedIndex = selectedIndex;
+    
+    UIViewController *currentViewController = self.viewControllers[_selectedIndex];
+    if ([currentViewController conformsToProtocol:@protocol(CPYPageViewControllerViewLifeCycle)] && [currentViewController respondsToSelector:@selector(cpy_pageViewWillAppear)]) {
+        [currentViewController performSelector:@selector(cpy_pageViewWillAppear)];
+    }
     
     if (!self.navigationController) {
         return;

@@ -20,6 +20,14 @@
 
 @end
 
+@protocol CPYPageViewControllerViewLifeCycle <NSObject>
+
+@optional
+- (void)cpy_pageViewWillAppear;
+- (void)cpy_pageViewWillDisappear;
+
+@end
+
 @interface CPYPageViewController : UIViewController
 
 @property (nonatomic, weak) id <CPYPageViewControllerDelegate> delegate;
