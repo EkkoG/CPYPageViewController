@@ -9,6 +9,7 @@
 #import "CPYViewController.h"
 #import <CPYPageViewController/CPYTabedPageViewController.h>
 #import "UIColor+Tools.h"
+#import "CPYTestViewController.h"
 
 @interface CPYViewController () <CPYTabedPageViewControllerDelegate>
 
@@ -33,7 +34,8 @@
     NSMutableArray *items = [NSMutableArray array];
     NSMutableArray *vcs = [NSMutableArray array];
     for (int i = 0; i < 5; i++) {
-        UIViewController *vc = [[UIViewController alloc] init];
+        CPYTestViewController *vc = [[CPYTestViewController alloc] init];
+        vc.index = i;
         vc.view.backgroundColor = [UIColor randomColor];
         [vcs addObject:vc];
         CPYTabItem *item = [[CPYTabItem alloc] initItemWithTitle:[NSString stringWithFormat:@"%d", i] normalTitleColor:[UIColor blackColor] selectedTitleColor:[UIColor randomColor]];

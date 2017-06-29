@@ -25,6 +25,7 @@
 		8587F828B314CE6B9990AC8A /* Pods_CPYPageViewController_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A4A3773652D4D87099CEC9 /* Pods_CPYPageViewController_Tests.framework */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		96CB99641E953D3100B0C6B6 /* UIColor+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CB99631E953D3100B0C6B6 /* UIColor+Tools.m */; };
+		96FBAB0A1F04FAA7003F2183 /* CPYTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FBAB091F04FAA7003F2183 /* CPYTestViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		96CB99621E953D3100B0C6B6 /* UIColor+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Tools.h"; sourceTree = "<group>"; };
 		96CB99631E953D3100B0C6B6 /* UIColor+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Tools.m"; sourceTree = "<group>"; };
+		96FBAB081F04FAA7003F2183 /* CPYTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPYTestViewController.h; sourceTree = "<group>"; };
+		96FBAB091F04FAA7003F2183 /* CPYTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPYTestViewController.m; sourceTree = "<group>"; };
 		A026306FB21D88DFB081FCB4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		BEB609849F61AAC6CC3B6433 /* Pods-CPYPageViewController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPYPageViewController_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CPYPageViewController_Tests/Pods-CPYPageViewController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C0B837846DCF4B8E313A6CD4 /* Pods_CPYPageViewController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPYPageViewController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +154,8 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* CPYViewController.h */,
 				6003F5A6195388D20070C39A /* CPYViewController.m */,
+				96FBAB081F04FAA7003F2183 /* CPYTestViewController.h */,
+				96FBAB091F04FAA7003F2183 /* CPYTestViewController.m */,
 				96CB99621E953D3100B0C6B6 /* UIColor+Tools.h */,
 				96CB99631E953D3100B0C6B6 /* UIColor+Tools.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
@@ -405,6 +410,7 @@
 				6003F59E195388D20070C39A /* CPYAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* CPYViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				96FBAB0A1F04FAA7003F2183 /* CPYTestViewController.m in Sources */,
 				96CB99641E953D3100B0C6B6 /* UIColor+Tools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
