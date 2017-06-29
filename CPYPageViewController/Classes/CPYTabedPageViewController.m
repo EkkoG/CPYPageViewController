@@ -134,7 +134,7 @@
 #pragma mark - CPYTabViewDelegate
 
 - (void)tabView:(CPYTabView *)tabView didSelectedTabAtIndex:(NSInteger)index {
-    [self.pageViewController selectViewControllerAtIndex:index animated:YES];
+    [self.pageViewController selectViewControllerAtIndex:index animated:NO];
     self.selectedIndex = index;
     if (self.delegate && [self.delegate respondsToSelector:@selector(tabedPageViewController:didSelectedViewControllerAtIndex:)]) {
         [self.delegate tabedPageViewController:self didSelectedViewControllerAtIndex:index];
