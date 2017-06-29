@@ -76,6 +76,12 @@
 - (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers {
     _viewControllers = viewControllers;
     [self setupViewControllers];
+    if (_viewControllers.count) {
+        UIViewController *currentViewController = self.viewControllers[0];
+        if ([currentViewController conformsToProtocol:@protocol(CPYPageViewControllerViewLifeCycle)] && [currentViewController respondsToSelector:@selector(cpy_pageViewWillAppear)]) {
+            [currentViewController performSelector:@selector(cpy_pageViewWillAppear)];
+        }
+    }
     [self setupScrollView];
 }
 
@@ -92,10 +98,6 @@
         [self.scrollView addSubview:self.viewControllers[i].view];
         self.viewControllers[i].view.frame = CGRectMake(i * CGRectGetWidth(self.view.bounds), 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
         self.viewControllers[i].view.autoresizingMask = UIViewAutoresizingNone;
-    }
-    UIViewController *currentViewController = self.viewControllers[0];
-    if ([currentViewController conformsToProtocol:@protocol(CPYPageViewControllerViewLifeCycle)] && [currentViewController respondsToSelector:@selector(cpy_pageViewWillAppear)]) {
-        [currentViewController performSelector:@selector(cpy_pageViewWillAppear)];
     }
 }
 
