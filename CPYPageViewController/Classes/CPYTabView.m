@@ -329,9 +329,22 @@
     
     CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
     CGRect f = self.floatingView.frame;
-    f.size.width = self.floatingViewWidth * (1 + 1 - fabs(fabs(self.floatingViewExpandScale) - 0.5) / 0.5);
+    CGFloat widthOffset = 1 + (1 - fabs(fabs(self.floatingViewExpandScale) - 0.5) / 0.5) * 2;
+    f.size.width = self.floatingViewWidth * widthOffset;
     
-    CGFloat leftX = averageWidth * self.selectedIndex + averageWidth / 2 - CGRectGetWidth(f) / 2 + self.floatingViewExpandScale * (averageWidth + self.floatingViewWidth) / 2;
+    CGFloat leftX = averageWidth * self.selectedIndex + averageWidth / 2 - self.floatingViewWidth / 2 + self.floatingViewExpandScale * (averageWidth + self.floatingViewWidth - 3 * self.floatingViewWidth);
+    
+    if (self.floatingViewExpandScale > 0.5) {
+        leftX += (3 * self.floatingViewWidth - CGRectGetWidth(f));
+    }
+    if (self.floatingViewExpandScale < 0 ) {
+        if (self.floatingViewExpandScale > -0.5) {
+            leftX -= (CGRectGetWidth(f) - self.floatingViewWidth);
+        }
+        else {
+            leftX -= 2 * self.floatingViewWidth;
+        }
+    }
     f.origin.x = leftX;
     
     self.floatingView.frame = f;

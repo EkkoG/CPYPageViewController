@@ -43,7 +43,7 @@
     self.tabedPageViewController.viewControllers = [vcs copy];
     self.tabedPageViewController.tabItems = [items copy];
     self.tabedPageViewController.tabView.floatingViewExpand = YES;
-    self.tabedPageViewController.floatingViewWidth = 30;
+    self.tabedPageViewController.floatingViewWidth = 15;
     self.tabedPageViewController.floatingViewColor = [UIColor redColor];
 }
 
