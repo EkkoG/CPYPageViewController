@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@interface CPYButton : UIButton
+
+@end
+
 @interface CPYTabItem : NSObject
 
 @property (nonatomic, strong) UIImage *normalBackgroundImage;

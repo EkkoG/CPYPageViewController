@@ -8,6 +8,14 @@
 
 #import "CPYTabView.h"
 
+@implementation CPYButton
+
+- (void)setHighlighted:(BOOL)highlighted {
+    
+}
+
+@end
+
 @implementation CPYTabItem
 
 - (instancetype)initItemWithTitle:(NSString *)title
@@ -235,7 +243,7 @@
     
     NSMutableArray *arr = [NSMutableArray array];
     for (int i = 0; i < count; i++) {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        CPYButton *btn = [CPYButton buttonWithType:UIButtonTypeCustom];
         [arr addObject:btn];
         [self.tabsContainerView addSubview:btn];
         
