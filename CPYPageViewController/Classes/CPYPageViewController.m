@@ -110,7 +110,7 @@
 
 - (CPYScrollView *)scrollView {
 	if (!_scrollView) {
-        _scrollView = [[CPYScrollView alloc] initWithFrame:self.view.bounds];
+        _scrollView = [[CPYScrollView alloc] init];
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.pagingEnabled = YES;
