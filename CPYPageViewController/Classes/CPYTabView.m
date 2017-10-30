@@ -254,6 +254,9 @@
             [btn setTitle:item.title forState:UIControlStateNormal];
             [btn setBackgroundImage:item.normalBackgroundImage forState:UIControlStateNormal];
             [btn setTitleColor:item.normalTitleColor forState:UIControlStateNormal];
+            btn.titleLabel.layer.shadowOpacity = item.shadowOpacity;
+            btn.titleLabel.layer.shadowColor = item.shadowColor.CGColor;
+            btn.titleLabel.layer.shadowOffset = item.shadowOffset;
             
             [btn setBackgroundImage:item.selectedBackgroundImage forState:UIControlStateSelected];
             [btn setTitleColor:item.selectedTitileColor forState:UIControlStateSelected];

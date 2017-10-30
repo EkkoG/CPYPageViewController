@@ -40,6 +40,9 @@
         [vcs addObject:vc];
         CPYTabItem *item = [[CPYTabItem alloc] initItemWithTitle:[NSString stringWithFormat:@"%d", i] normalTitleColor:[UIColor blackColor] selectedTitleColor:[UIColor randomColor]];
         item.selectedTitleFont = [UIFont systemFontOfSize:20];
+        item.shadowColor = [UIColor blueColor];
+        item.shadowOffset = CGSizeMake(0, 3);
+        item.shadowOpacity = 1;
         [items addObject:item];
     }
     self.tabedPageViewController.viewControllers = [vcs copy];

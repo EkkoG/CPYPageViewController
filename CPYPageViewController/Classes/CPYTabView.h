@@ -21,6 +21,9 @@
 @property (nonatomic, strong) UIFont *titleFont;
 @property (nonatomic, strong) UIFont *selectedTitleFont;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) CGSize shadowOffset;
+@property (nonatomic, strong) UIColor *shadowColor;
+@property (nonatomic, assign) CGFloat shadowOpacity;
 
 - (instancetype)initItemWithTitle:(NSString *)title;
 - (instancetype)initItemWithNormalBackgroundImage:(UIImage *)normalBackgroundImage selectedBackgroundImage:(UIImage *)selectedBackgroundImage;
