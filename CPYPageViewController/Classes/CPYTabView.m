@@ -302,6 +302,9 @@
     if (self.floatingViewWidth < 0) {
         self.floatingViewWidth = CGRectGetWidth([UIScreen mainScreen].bounds) / count;
     }
+    if (self.floatingViewHalfOfTitleLength) {
+        _floatingViewWidth = [self.dataSource tabView:self tabItemAtIndex:0].titleLength / 2;
+    }
     
     self.floatingView.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - self.floatingViewHeight - self.floatingViewBottomMargin, self.floatingViewWidth, self.floatingViewHeight);
 }
@@ -314,6 +317,10 @@
     NSInteger count = [self.dataSource numberOfTabs:self];
     if (count == 0) {
         return;
+    }
+
+    if (self.floatingViewHalfOfTitleLength) {
+        _floatingViewWidth = [self.dataSource tabView:self tabItemAtIndex:index].titleLength / 2;
     }
     
     CGFloat leftX = self.averageTabWidth * index + self.averageTabWidth / 2 - self.floatingViewWidth / 2;

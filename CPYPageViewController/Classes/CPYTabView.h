@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIFont *titleFont;
 @property (nonatomic, strong) UIFont *selectedTitleFont;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) CGFloat titleLength;
 @property (nonatomic, assign) CGSize shadowOffset;
 @property (nonatomic, strong) UIColor *shadowColor;
 @property (nonatomic, assign) CGFloat shadowOpacity;
@@ -63,6 +64,7 @@
 @property (nonatomic, strong) UIColor *bottomLineColor;
 @property (nonatomic, assign) BOOL floatingViewExpand;
 @property (nonatomic, assign) CGFloat floatingViewExpandScale;
+@property (nonatomic, assign) BOOL floatingViewHalfOfTitleLength;
 
 @property (nonatomic, strong, readonly) UIView *bottomLineView;
 @property (nonatomic, assign, readonly) NSInteger selectedIndex;
