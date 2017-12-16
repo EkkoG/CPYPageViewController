@@ -127,10 +127,20 @@
     }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(pageViewController:didScrollToContentOffset:)]) {
-        [self.delegate pageViewController:self didScrollToContentOffset:self.scrollView.contentOffset];
+#pragma mark - UIScrollViewDelegate forwarding
+
+-(BOOL)respondsToSelector:(SEL)aSelector {
+    if ([self.scrollViewDelegate respondsToSelector:aSelector]) {
+        return YES;
     }
+    return [super respondsToSelector:aSelector];
+}
+
+-(id)forwardingTargetForSelector:(SEL)aSelector {
+    if ([self.scrollViewDelegate respondsToSelector:aSelector]) {
+        return self.scrollViewDelegate;
+    }
+    return [super forwardingTargetForSelector:aSelector];
 }
 
 - (void)didReceiveMemoryWarning {

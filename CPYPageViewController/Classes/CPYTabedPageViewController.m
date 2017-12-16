@@ -8,7 +8,7 @@
 
 #import "CPYTabedPageViewController.h"
 
-@interface CPYTabedPageViewController () <CPYTabViewDataSource, CPYTabViewDelegate, CPYPageViewControllerDelegate>
+@interface CPYTabedPageViewController () <CPYTabViewDataSource, CPYTabViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong, readwrite) CPYPageViewController *pageViewController;
 @property (nonatomic, strong, readwrite) CPYTabView *tabView;
@@ -108,6 +108,7 @@
 	if (!_pageViewController) {
         _pageViewController = [[CPYPageViewController alloc] init];
         _pageViewController.delegate = self;
+        _pageViewController.scrollViewDelegate = self;
 	}
 	return _pageViewController;
 }
@@ -152,8 +153,8 @@
     }
 }
 
-- (void)pageViewController:(CPYPageViewController *)pageViewController didScrollToContentOffset:(CGPoint)contentOffset {
-    CGFloat x = contentOffset.x - self.pageViewController.selectedIndex * CGRectGetWidth(self.view.bounds);
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat x = scrollView.contentOffset.x - self.pageViewController.selectedIndex * CGRectGetWidth(self.view.bounds);
     self.tabView.floatingViewExpandScale = x / CGRectGetWidth(self.view.bounds);
 }
 

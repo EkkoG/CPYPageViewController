@@ -15,9 +15,6 @@
 
 - (void)pageViewController:(CPYPageViewController *)pageViewController didScrollToViewControllerAtIndex:(NSInteger)index;
 
-@optional
-- (void)pageViewController:(CPYPageViewController *)pageViewController didScrollToContentOffset:(CGPoint)contentOffset;
-
 @end
 
 @protocol CPYPageViewControllerViewLifeCycle <NSObject>
@@ -33,8 +30,10 @@
 @property (nonatomic, weak) id <CPYPageViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSArray<UIViewController *> *viewControllers;
 
+// You can not modify the scrollView's delegate absolutly! Use scrollViewDelegate instead!
 @property (nonatomic, strong, readonly) CPYScrollView *scrollView;
 @property (nonatomic, assign, readonly) NSInteger selectedIndex;
+@property (nonatomic, weak) id <UIScrollViewDelegate> scrollViewDelegate;
 
 - (void)selectViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated;
 
