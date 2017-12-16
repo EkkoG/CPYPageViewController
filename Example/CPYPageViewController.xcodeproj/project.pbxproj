@@ -261,7 +261,7 @@
 				ORGANIZATIONNAME = cielpy;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = 9ATJLJZ6BL;
+						DevelopmentTeam = TS29QS2B86;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -550,7 +550,7 @@
 			baseConfigurationReference = 61393F7AABA63867AD0E10C8 /* Pods-CPYPageViewController_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9ATJLJZ6BL;
+				DEVELOPMENT_TEAM = TS29QS2B86;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CPYPageViewController/CPYPageViewController-Prefix.pch";
 				INFOPLIST_FILE = "CPYPageViewController/CPYPageViewController-Info.plist";
@@ -566,7 +566,7 @@
 			baseConfigurationReference = 2F23A84CD171F3D15C2E9F33 /* Pods-CPYPageViewController_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9ATJLJZ6BL;
+				DEVELOPMENT_TEAM = TS29QS2B86;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CPYPageViewController/CPYPageViewController-Prefix.pch";
 				INFOPLIST_FILE = "CPYPageViewController/CPYPageViewController-Info.plist";

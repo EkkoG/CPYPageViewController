@@ -33,7 +33,7 @@
     
     NSMutableArray *items = [NSMutableArray array];
     NSMutableArray *vcs = [NSMutableArray array];
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 10; i++) {
         CPYTestViewController *vc = [[CPYTestViewController alloc] init];
         vc.index = i;
         vc.view.backgroundColor = [UIColor randomColor];
@@ -50,6 +50,8 @@
     self.tabedPageViewController.tabView.floatingViewExpand = YES;
     self.tabedPageViewController.floatingViewWidth = 15;
     self.tabedPageViewController.floatingViewColor = [UIColor redColor];
+    self.tabedPageViewController.tabView.tabScrollEnable = YES;
+    self.tabedPageViewController.tabView.tabWidth = 60;
 }
 
 

@@ -66,6 +66,8 @@
 
 @property (nonatomic, strong, readonly) UIView *bottomLineView;
 @property (nonatomic, assign, readonly) NSInteger selectedIndex;
+@property (nonatomic, assign) BOOL tabScrollEnable;
+@property (nonatomic, assign) CGFloat tabWidth;
 
 - (void)reloadData;
 

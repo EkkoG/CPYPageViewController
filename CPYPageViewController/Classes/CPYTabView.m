@@ -61,7 +61,7 @@
 
 @interface CPYTabView ()
 
-@property (nonatomic, strong) UIView *tabsContainerView;
+@property (nonatomic, strong) UIScrollView *tabsContainerView;
 @property (nonatomic, strong) UIView *floatingView;
 @property (nonatomic, strong, readwrite) UIView *bottomLineView;
 @property (nonatomic, strong) NSArray <UIButton *> *tabButtons;
@@ -69,6 +69,8 @@
 @property (nonatomic, assign, readwrite) NSInteger selectedIndex;
 
 @property (nonatomic, assign) BOOL forbadeExpand;
+
+@property (nonatomic, assign) CGFloat averageTabWidth;
 
 @end
 
@@ -124,7 +126,7 @@
     
     [self addSubview:self.tabsContainerView];
     self.tabsContainerView.frame = self.bounds;
-    [self addSubview:self.floatingView];
+    [self.tabsContainerView addSubview:self.floatingView];
     
     [self addSubview:self.bottomLineView];
     
@@ -208,6 +210,10 @@
     self.tabButtons[_selectedIndex].titleLabel.font = item1.selectedTitleFont;
     
     self.tabButtons[_selectedIndex].selected = YES;
+    
+    if (self.tabScrollEnable) {
+        [self scrollToCentre];
+    }
 }
 
 - (void)setBottomLineColor:(UIColor *)bottomLineColor {
@@ -243,7 +249,9 @@
     }
     
     for (UIView *v in self.tabsContainerView.subviews) {
-        [v removeFromSuperview];
+        if ([v isKindOfClass:[CPYButton class]]) {
+            [v removeFromSuperview];
+        }
     }
     
     NSMutableArray *arr = [NSMutableArray array];
@@ -308,8 +316,7 @@
         return;
     }
     
-    CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
-    CGFloat leftX = averageWidth * index + averageWidth / 2 - self.floatingViewWidth / 2;
+    CGFloat leftX = self.averageTabWidth * index + self.averageTabWidth / 2 - self.floatingViewWidth / 2;
     if (animated) {
         [UIView animateWithDuration:0.3 animations:^{
             CGRect f = self.floatingView.frame;
@@ -334,8 +341,10 @@
     NSArray *arr = self.tabButtons;
     for (int i = 0; i < arr.count; i++) {
         UIButton *btn = arr[i];
-        btn.frame = CGRectMake(CGRectGetWidth(self.bounds) / arr.count * i, 0, CGRectGetWidth(self.bounds) / arr.count, CGRectGetHeight(self.bounds));
+        btn.frame = CGRectMake(self.averageTabWidth * i, 0, self.averageTabWidth, CGRectGetHeight(self.bounds));
     }
+    
+    self.tabsContainerView.contentSize = (CGSizeMake(self.averageTabWidth * arr.count, CGRectGetHeight(self.bounds)));
 }
 
 - (void)expandFloatingView {
@@ -348,7 +357,7 @@
         return;
     }
     
-    CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
+    CGFloat averageWidth = self.averageTabWidth;
     CGRect f = self.floatingView.frame;
     CGFloat widthOffset = 1 + (1 - fabs(fabs(self.floatingViewExpandScale) - 0.5) / 0.5) * 2;
     f.size.width = self.floatingViewWidth * widthOffset;
@@ -371,11 +380,34 @@
     self.floatingView.frame = f;
 }
 
+- (void)scrollToCentre {
+    CGFloat offset = (self.averageTabWidth * self.selectedIndex + self.averageTabWidth / 2) - (self.tabsContainerView.contentOffset.x + CGRectGetWidth(self.bounds) / 2);
+    if (offset < 0) {
+        if (fabs(offset) > self.tabsContainerView.contentOffset.x) {
+            return;
+        }
+        else {
+            [self.tabsContainerView setContentOffset:CGPointMake(self.tabsContainerView.contentOffset.x + offset, 0) animated:YES];
+        }
+    }
+    else {
+        if (fabs(offset) > (self.tabsContainerView.contentSize.width - self.tabsContainerView.contentOffset.x - CGRectGetWidth(self.bounds))) {
+            return;
+        }
+        else {
+            [self.tabsContainerView setContentOffset:CGPointMake(self.tabsContainerView.contentOffset.x + offset, 0) animated:YES];
+        }
+        
+    }
+}
+
 #pragma mark - getters
 
 - (UIView *)tabsContainerView {
 	if (!_tabsContainerView) {
-        _tabsContainerView = [[UIView alloc] init];
+        _tabsContainerView = [[UIScrollView alloc] init];
+        _tabsContainerView.showsVerticalScrollIndicator = NO;
+        _tabsContainerView.showsHorizontalScrollIndicator = NO;
 	}
 	return _tabsContainerView;
 }
@@ -387,13 +419,25 @@
 	return _floatingView;
 }
 
-
 - (UIView *)bottomLineView {
 	if (!_bottomLineView) {
         _bottomLineView = [[UIView alloc] init];
         _bottomLineView.backgroundColor = [UIColor blackColor];
 	}
 	return _bottomLineView;
+}
+
+- (CGFloat)averageTabWidth {
+    if (self.tabScrollEnable) {
+        return self.tabWidth;
+    }
+    NSInteger count = [self.dataSource numberOfTabs:self];
+    if (count == 0) {
+        return 0;
+    }
+    
+    CGFloat averageWidth = CGRectGetWidth(self.bounds) / count;
+    return averageWidth;
 }
 
 /*
