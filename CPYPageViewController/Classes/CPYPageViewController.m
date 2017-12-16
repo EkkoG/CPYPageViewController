@@ -130,14 +130,16 @@
 #pragma mark - UIScrollViewDelegate forwarding
 
 -(BOOL)respondsToSelector:(SEL)aSelector {
-    if ([self.scrollViewDelegate respondsToSelector:aSelector]) {
+    NSString *selectorString = NSStringFromSelector(aSelector);
+    if ([selectorString hasPrefix:@"scrollView"] && [self.scrollViewDelegate respondsToSelector:aSelector]) {
         return YES;
     }
     return [super respondsToSelector:aSelector];
 }
 
 -(id)forwardingTargetForSelector:(SEL)aSelector {
-    if ([self.scrollViewDelegate respondsToSelector:aSelector]) {
+    NSString *selectorString = NSStringFromSelector(aSelector);
+    if ([selectorString hasPrefix:@"scrollView"] && [self.scrollViewDelegate respondsToSelector:aSelector]) {
         return self.scrollViewDelegate;
     }
     return [super forwardingTargetForSelector:aSelector];
