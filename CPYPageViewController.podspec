@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CPYPageViewController'
-  s.version          = '0.1.27'
+  s.version          = '0.1.28'
   s.summary          = 'A page view controller with tab integration.'
 
 # This description is used to generate tags and improve search results.
