@@ -68,6 +68,8 @@
 
 @property (nonatomic, assign, readwrite) NSInteger selectedIndex;
 
+@property (nonatomic, assign) BOOL forbadeExpand;
+
 @end
 
 @implementation CPYTabView
@@ -222,6 +224,9 @@
 
 - (void)setFloatingViewExpandScale:(CGFloat)floatingViewExpandScale {
     _floatingViewExpandScale = floatingViewExpandScale;
+    if (self.forbadeExpand) {
+        return;
+    }
     [self expandFloatingView];
 }
 
@@ -267,6 +272,7 @@
 }
 
 - (void)tabClick:(UIButton *)sender {
+    self.forbadeExpand = YES;
     self.selectedIndex = [self.tabButtons indexOfObject:sender];
     [self floatingViewMoveToIndex:self.selectedIndex animated:YES];
     
@@ -310,6 +316,8 @@
             f.origin.x = leftX;
             f.size.width = self.floatingViewWidth;
             self.floatingView.frame = f;
+        } completion:^(BOOL finished) {
+            self.forbadeExpand = NO;
         }];
     }
     else {
@@ -317,6 +325,8 @@
         f.origin.x = leftX;
         f.size.width = self.floatingViewWidth;
         self.floatingView.frame = f;
+        
+        self.forbadeExpand = NO;
     }
 }
 
