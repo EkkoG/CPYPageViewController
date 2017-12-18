@@ -8,7 +8,7 @@
 
 #import "CPYTabedPageViewController.h"
 
-@interface CPYTabedPageViewController () <CPYTabViewDataSource, CPYTabViewDelegate, UIScrollViewDelegate>
+@interface CPYTabedPageViewController () <CPYTabViewDataSource, CPYTabViewDelegate, CPYPageViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong, readwrite) CPYPageViewController *pageViewController;
 @property (nonatomic, strong, readwrite) CPYTabView *tabView;
