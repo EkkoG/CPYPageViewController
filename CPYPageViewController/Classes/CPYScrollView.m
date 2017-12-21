@@ -19,6 +19,20 @@
     return self;
 }
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    
+    UIView *view = [super hitTest:point withEvent:event];
+    
+    NSString *className = NSStringFromClass([view class]);
+    if (self.frobiddenScrollWhenTouchedClasses && [self.frobiddenScrollWhenTouchedClasses containsObject:className]) {
+        self.scrollEnabled = NO;
+    }else{
+        self.scrollEnabled = YES;
+    }
+    
+    return view;
+}
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     
     if ([self panBack:gestureRecognizer] && self.enableRightGestureAtFirstPage) {
