@@ -17,4 +17,6 @@
  */
 @property (nonatomic, assign) BOOL enableRightGestureAtFirstPage;
 
+@property (nonatomic, strong) NSArray <NSString *> *frobiddenScrollWhenTouchedClasses;
+
 @end
