@@ -345,6 +345,7 @@
     }
     
     self.tabsContainerView.contentSize = (CGSizeMake(self.averageTabWidth * arr.count, CGRectGetHeight(self.bounds)));
+    self.tabsContainerView.contentInset = UIEdgeInsetsZero;
 }
 
 - (void)expandFloatingView {
